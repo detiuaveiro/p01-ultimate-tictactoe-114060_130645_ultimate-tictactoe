@@ -2,7 +2,7 @@ import asyncio
 import random
 from typing import List, Optional, Tuple, Union
 
-from agents.base_agent import BaseUTTTAgent
+from base_agent import BaseUTTTAgent
 
 
 class DummyUTTTAgent(BaseUTTTAgent):
