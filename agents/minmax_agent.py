@@ -102,7 +102,7 @@ class BaseUTTTAgent:
             "active_macro": active_macro,
             "valid_actions": valid_actions,
         }
-        max_depth = 6 
+        max_depth = 3 
         engine = MinMax(state, max_depth=max_depth, player_id=self.player_id)
         move, score = engine.think(state, max_depth, self.player_id)
         # print(f"player_id: {self.player_id}")
