@@ -138,6 +138,7 @@ python mcts/cli.py train --epochs 50 --batch-size 512 --data-path mcts/raw_data
   - `pvn_agent.py`: An agent combining the Policy Value Network with MCTS.
 - `mcts/`: MCTS and PVN implementation. Includes data generation tools (C and Python), training scripts, and models.
 - `minmax/`: MinMax algorithm implementation.
+- `benchmark_arena.py`: Headless benchmark tool to simulate and evaluate games between agents concurrently.
 - `compose.yml`: Docker Compose configuration for running the full stack.
 - `requirements.txt`: Python dependencies.
 
