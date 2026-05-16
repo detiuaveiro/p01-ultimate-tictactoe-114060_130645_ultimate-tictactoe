@@ -34,6 +34,7 @@ def main():
     parser.add_argument('--early-stop-patience', type=int, default=5)
     parser.add_argument('--early-stop-min-delta', type=float, default=1e-4)
     parser.add_argument('--plot-path', default='plots/training_curves.png')
+    parser.add_argument('--load-model', default=None, type=str, help="Path to a pre-trained .pth file to load weights from")
     args = parser.parse_args()
 
     if args.device == 'auto':
@@ -47,6 +48,17 @@ def main():
     torch.manual_seed(args.seed)
 
     model = PVN().to(device)
+    
+    if args.load_model:
+        print(f"Loading pre-trained weights from: {args.load_model}")
+        try:
+            state_dict = torch.load(args.load_model, map_location=device, weights_only=True)
+            model.load_state_dict(state_dict)
+            print("Successfully loaded weights.")
+        except Exception as e:
+            print(f"Error loading model weights from {args.load_model}: {e}")
+            sys.exit(1)
+
     total_params = sum(p.numel() for p in model.parameters())
     print(f"Total parameters: {total_params:,}")
 
