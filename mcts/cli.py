@@ -105,6 +105,9 @@ def run_training(args):
     cmd.extend(["--early-stop-min-delta", str(args.early_stop_min_delta)])
     cmd.extend(["--plot-path", plot_path])
     
+    if args.load_model:
+        cmd.extend(["--load-model", args.load_model])
+    
     subprocess.run(cmd)
 
 def run_visualize(args):
@@ -158,6 +161,7 @@ def main():
     parser_train.add_argument('--early-stop-patience', type=int, default=5)
     parser_train.add_argument('--early-stop-min-delta', type=float, default=1e-4)
     parser_train.add_argument('--plot-path', default='plots/training_curves.png')
+    parser_train.add_argument('--load-model', default=None, type=str, help="Path to a pre-trained .pth file to load weights from")
     parser_train.set_defaults(func=run_training)
 
     # --- Subcommand: Visualize Data ---
