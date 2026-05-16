@@ -1,14 +1,19 @@
 import json
 import logging
 import asyncio
+import sys
+from pathlib import Path
 from typing import List, Optional, Tuple, Union
-
-from minmax.minmax import MinMax
 
 import websockets
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - AGENT - %(message)s")
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
+from minmax.minmax import MinMax
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - AGENT - %(message)s")
 
 class BaseUTTTAgent:
     """
@@ -97,8 +102,9 @@ class BaseUTTTAgent:
             "active_macro": active_macro,
             "valid_actions": valid_actions,
         }
-        engine = MinMax(state, max_depth=3, player_id=self.player_id)
-        move, score = engine.think(state, 6, self.player_id)
+        max_depth = 6 
+        engine = MinMax(state, max_depth=max_depth, player_id=self.player_id)
+        move, score = engine.think(state, max_depth, self.player_id)
         # print(f"player_id: {self.player_id}")
         print(f"MinMax suggests move {move} with score {score}")
         return move
